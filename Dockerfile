@@ -13,7 +13,7 @@ WORKDIR /var/www/html
 
 # Copia composer.* y ejecuta instalación de dependencias
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
 
 # Copia el resto del proyecto (después del install)
 COPY . .
