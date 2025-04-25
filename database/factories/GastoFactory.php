@@ -4,16 +4,18 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Galpon;
+use App\Models\Gasto;
 use App\Models\User;
 
-class UserFactory extends Factory
+class GastoFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Gasto::class;
 
     /**
      * Define the model's default state.
@@ -21,12 +23,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'email_verified_at' => fake()->dateTime(),
-            'password' => fake()->password(),
-            'role' => fake()->randomElement(["admin","operario"]),
-            'remember_token' => fake()->uuid(),
+            'galpon_id' => Galpon::factory(),
+            'fecha' => fake()->date(),
+            'concepto' => fake()->word(),
+            'monto' => fake()->randomFloat(2, 0, 99999999.99),
+            'created_by' => User::factory()->create()->created_by,
         ];
     }
 }

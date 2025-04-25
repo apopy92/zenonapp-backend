@@ -1,0 +1,54 @@
+models:
+  User:
+    name: string
+    email: string unique
+    email_verified_at: timestamp nullable
+    password: string
+    role: enum:admin,operario
+    remember_token: string nullable
+    timestamps
+
+  Galpon:
+    nombre: string
+    ubicacion: string nullable
+    capacidad: integer
+    timestamps
+
+  Produccion:
+    galpon_id: id foreign:galpon
+    fecha: date
+    huevos_comerciales: integer default:0
+    huevos_incubables: integer default:0
+    huevos_rotos: integer default:0
+    observaciones: text nullable
+    created_by: id foreign:user
+    timestamps
+
+  Mortandad:
+    galpon_id: id foreign:galpon
+    fecha: date
+    cantidad: integer
+    causa: text nullable
+    created_by: id foreign:user
+    timestamps
+
+  Gasto:
+    galpon_id: id foreign:galpon
+    fecha: date
+    concepto: string
+    monto: decimal:10,2
+    created_by: id foreign:user
+    timestamps
+
+  Stock:
+    galpon_id: id foreign:galpon
+    fecha: date
+    tipo: enum:comercial,incubable,roto
+    cantidad: integer
+    created_by: id foreign:user
+    timestamps
+
+pivot:
+  GalponUser:
+    user_id: id foreign:user
+    galpon_id: id foreign:galpon

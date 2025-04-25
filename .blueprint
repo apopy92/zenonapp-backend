@@ -1,0 +1,26 @@
+created:
+    - database/factories/UserFactory.php
+    - database/factories/GalponFactory.php
+    - database/factories/ProduccionFactory.php
+    - database/factories/MortandadFactory.php
+    - database/factories/GastoFactory.php
+    - database/factories/StockFactory.php
+    - database/migrations/2025_04_22_214906_create_users_table.php
+    - database/migrations/2025_04_22_214907_create_galpons_table.php
+    - database/migrations/2025_04_22_214908_create_produccions_table.php
+    - database/migrations/2025_04_22_214909_create_mortandads_table.php
+    - database/migrations/2025_04_22_214910_create_gastos_table.php
+    - database/migrations/2025_04_22_214911_create_stocks_table.php
+    - app/Models/User.php
+    - app/Models/Galpon.php
+    - app/Models/Produccion.php
+    - app/Models/Mortandad.php
+    - app/Models/Gasto.php
+    - app/Models/Stock.php
+models:
+    User: { name: string, email: 'string unique', email_verified_at: 'timestamp nullable', password: string, role: 'enum:admin,operario', remember_token: 'string nullable', timestamps: timestamps }
+    Galpon: { nombre: string, ubicacion: 'string nullable', capacidad: integer, timestamps: timestamps }
+    Produccion: { galpon_id: 'id foreign:galpon', fecha: date, huevos_comerciales: 'integer default:0', huevos_incubables: 'integer default:0', huevos_rotos: 'integer default:0', observaciones: 'text nullable', created_by: 'id foreign:user', timestamps: timestamps }
+    Mortandad: { galpon_id: 'id foreign:galpon', fecha: date, cantidad: integer, causa: 'text nullable', created_by: 'id foreign:user', timestamps: timestamps }
+    Gasto: { galpon_id: 'id foreign:galpon', fecha: date, concepto: string, monto: 'decimal:10,2', created_by: 'id foreign:user', timestamps: timestamps }
+    Stock: { galpon_id: 'id foreign:galpon', fecha: date, tipo: 'enum:comercial,incubable,roto', cantidad: integer, created_by: 'id foreign:user', timestamps: timestamps }
