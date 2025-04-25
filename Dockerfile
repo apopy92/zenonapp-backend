@@ -1,9 +1,9 @@
 FROM php:8.2-apache
 
-# Instala extensiones necesarias
+# Instala extensiones necesarias para Laravel + Filament
 RUN apt-get update && apt-get install -y \
-    git zip unzip curl libpq-dev libonig-dev libzip-dev libpng-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip gd
+    git zip unzip curl libpq-dev libonig-dev libzip-dev libpng-dev libicu-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip gd intl
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
