@@ -3,69 +3,43 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
+        'galpones',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     /**
-     * Relación muchos a muchos con galpones
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
      */
-    public function galpones(): BelongsToMany
+    protected function casts(): array
     {
-        return $this->belongsToMany(Galpon::class);
-    }
-
-    /**
-     * Producciones creadas por el usuario
-     */
-    public function producciones(): HasMany
-    {
-        return $this->hasMany(Produccion::class, 'created_by');
-    }
-
-    /**
-     * Mortandades registradas por el usuario
-     */
-    public function mortandades(): HasMany
-    {
-        return $this->hasMany(Mortandad::class, 'created_by');
-    }
-
-    /**
-     * Gastos registrados por el usuario
-     */
-    public function gastos(): HasMany
-    {
-        return $this->hasMany(Gasto::class, 'created_by');
-    }
-
-    /**
-     * Stocks registrados por el usuario
-     */
-    public function stocks(): HasMany
-    {
-        return $this->hasMany(Stock::class, 'created_by');
+        return [
+            'id' => 'integer',
+        ];
     }
 }

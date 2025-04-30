@@ -1,54 +1,58 @@
 models:
   User:
-    name: string
-    email: string unique
-    email_verified_at: timestamp nullable
-    password: string
-    role: enum:admin,operario
-    remember_token: string nullable
-    timestamps
+    name: string:191
+    email: string:191:unique
+    password: string:191
+    role: string:50
+    timestamps: true
+    galpones: belongsToMany
 
   Galpon:
-    nombre: string
-    ubicacion: string nullable
+    nombre: string:255
+    ubicacion: string:255
     capacidad: integer
-    timestamps
-
-  Produccion:
-    galpon_id: id foreign:galpon
-    fecha: date
-    huevos_comerciales: integer default:0
-    huevos_incubables: integer default:0
-    huevos_rotos: integer default:0
-    observaciones: text nullable
-    created_by: id foreign:user
-    timestamps
-
-  Mortandad:
-    galpon_id: id foreign:galpon
-    fecha: date
-    cantidad: integer
-    causa: text nullable
-    created_by: id foreign:user
-    timestamps
+    created_by: unsignedBigInteger index
+    timestamps: true
+    users: belongsToMany
 
   Gasto:
-    galpon_id: id foreign:galpon
+    galpon_id: unsignedBigInteger index
     fecha: date
-    concepto: string
+    concepto: string:255
     monto: decimal:10,2
-    created_by: id foreign:user
-    timestamps
+    created_by: unsignedBigInteger index
+    timestamps: true
+
+  Mortandad:
+    galpon_id: unsignedBigInteger index
+    fecha: date
+    cantidad: integer
+    causa: text
+    created_by: unsignedBigInteger index
+    timestamps: true
+
+  Produccion:
+    galpon_id: unsignedBigInteger index
+    fecha: date
+    cantidad: integer
+    tipo: string:100
+    created_by: unsignedBigInteger index
+    timestamps: true
 
   Stock:
-    galpon_id: id foreign:galpon
+    galpon_id: unsignedBigInteger index
     fecha: date
-    tipo: enum:comercial,incubable,roto
+    tipo: string:100
     cantidad: integer
-    created_by: id foreign:user
-    timestamps
+    created_by: unsignedBigInteger index
+    timestamps: true
 
-pivot:
-  GalponUser:
-    user_id: id foreign:user
-    galpon_id: id foreign:galpon
+tables:
+  galpon_user:
+    id: id
+    user_id: unsignedBigInteger index
+    galpon_id: unsignedBigInteger index
+    timestamps: true
+
+controllers: false
+requests: false

@@ -4,9 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Galpon;
 use App\Models\Gasto;
-use App\Models\User;
 
 class GastoFactory extends Factory
 {
@@ -23,11 +21,11 @@ class GastoFactory extends Factory
     public function definition(): array
     {
         return [
-            'galpon_id' => Galpon::factory(),
+            'galpon_id' => fake()->randomNumber(),
             'fecha' => fake()->date(),
-            'concepto' => fake()->word(),
+            'concepto' => fake()->regexify('[A-Za-z0-9]{255}'),
             'monto' => fake()->randomFloat(2, 0, 99999999.99),
-            'created_by' => User::factory()->create()->created_by,
+            'created_by' => fake()->randomNumber(),
         ];
     }
 }

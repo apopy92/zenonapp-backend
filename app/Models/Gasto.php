@@ -10,9 +10,9 @@ class Gasto extends Model
     use HasFactory;
 
     /**
-     * Los atributos que se pueden asignar masivamente.
+     * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
         'galpon_id',
@@ -23,18 +23,18 @@ class Gasto extends Model
     ];
 
     /**
-     * Relación con el modelo Galpones.
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
      */
-    public function galpon()
+    protected function casts(): array
     {
-        return $this->belongsTo(Galpones::class);
-    }
-
-    /**
-     * Relación con el creador del gasto (usuario).
-     */
-    public function creador()
-    {
-        return $this->belongsTo(User::class, 'created_by');
+        return [
+            'id' => 'integer',
+            'galpon_id' => 'integer',
+            'fecha' => 'date',
+            'monto' => 'decimal:2',
+            'created_by' => 'integer',
+        ];
     }
 }

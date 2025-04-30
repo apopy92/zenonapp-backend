@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Galpon extends Model
+class Mortandad extends Model
 {
     use HasFactory;
 
@@ -15,11 +15,11 @@ class Galpon extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre',
-        'ubicacion',
-        'capacidad',
+        'galpon_id',
+        'fecha',
+        'cantidad',
+        'causa',
         'created_by',
-        'users',
     ];
 
     /**
@@ -31,6 +31,8 @@ class Galpon extends Model
     {
         return [
             'id' => 'integer',
+            'galpon_id' => 'integer',
+            'fecha' => 'date',
             'created_by' => 'integer',
         ];
     }

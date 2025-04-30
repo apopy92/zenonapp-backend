@@ -4,9 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Galpon;
 use App\Models\Stock;
-use App\Models\User;
 
 class StockFactory extends Factory
 {
@@ -23,11 +21,11 @@ class StockFactory extends Factory
     public function definition(): array
     {
         return [
-            'galpon_id' => Galpon::factory(),
+            'galpon_id' => fake()->randomNumber(),
             'fecha' => fake()->date(),
-            'tipo' => fake()->randomElement(["comercial","incubable","roto"]),
+            'tipo' => fake()->regexify('[A-Za-z0-9]{100}'),
             'cantidad' => fake()->numberBetween(-10000, 10000),
-            'created_by' => User::factory()->create()->created_by,
+            'created_by' => fake()->randomNumber(),
         ];
     }
 }

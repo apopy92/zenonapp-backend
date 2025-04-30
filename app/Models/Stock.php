@@ -9,6 +9,11 @@ class Stock extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'galpon_id',
         'fecha',
@@ -17,13 +22,18 @@ class Stock extends Model
         'created_by',
     ];
 
-    public function galpon()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->belongsTo(Galpones::class);
-    }
-
-    public function creador()
-    {
-        return $this->belongsTo(User::class, 'created_by');
+        return [
+            'id' => 'integer',
+            'galpon_id' => 'integer',
+            'fecha' => 'date',
+            'created_by' => 'integer',
+        ];
     }
 }

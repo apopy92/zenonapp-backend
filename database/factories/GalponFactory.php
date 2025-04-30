@@ -21,9 +21,11 @@ class GalponFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => fake()->word(),
-            'ubicacion' => fake()->word(),
+            'nombre' => fake()->regexify('[A-Za-z0-9]{255}'),
+            'ubicacion' => fake()->regexify('[A-Za-z0-9]{255}'),
             'capacidad' => fake()->numberBetween(-10000, 10000),
+            'created_by' => fake()->randomNumber(),
+            'users' => fake()->word(),
         ];
     }
 }
